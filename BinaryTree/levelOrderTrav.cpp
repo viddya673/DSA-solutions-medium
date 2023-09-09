@@ -17,35 +17,35 @@ struct Node* newNode(int val){
     return node;
 }
 
-void printLevelOrder(Node* root){
-    if(root==NULL)
-        return;
+// void printLevelOrder(Node* root){
+//     if(root==NULL)
+//         return;
 
-    queue<Node*> q;
-    q.push(root);
-    q.push(NULL);
+//     queue<Node*> q;
+//     q.push(root);
+//     q.push(NULL);
 
-    while(!q.empty()){
-        Node* curr = q.front();
-        q.pop();
+//     while(!q.empty()){
+//         Node* curr = q.front();
+//         q.pop();
 
-        if(curr==NULL){
-            if(!q.empty()){
-                q.push(NULL);
-                cout<<endl;
-                continue;
-            }
-        }
+//         if(curr==NULL){
+//             if(!q.empty()){
+//                 q.push(NULL);
+//                 cout<<endl;
+//                 continue;
+//             }
+//         }
 
-        cout<<curr->data<<" ";
+//         cout<<curr->data<<" ";
 
-        if(curr->left != NULL)
-            q.push(curr->left);
+//         if(curr->left != NULL)
+//             q.push(curr->left);
 
-        if(curr->right != NULL)
-            q.push(curr->right);
-    }
-}
+//         if(curr->right != NULL)
+//             q.push(curr->right);
+//     }
+// }
 
 // Recursion
 // void printCurrentLevel(Node* root, int level){
@@ -58,6 +58,36 @@ void printLevelOrder(Node* root){
 //         printCurrentLevel(root->right, level-1);
 //     }
 // }
+
+vector<vector<int>> levelOrder(Node* root) {
+    vector<vector<int>> res;
+    if (root == NULL)
+        return res;
+    
+    queue<Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int levelSize = q.size();
+        vector<int> temp;
+
+        for (int i = 0; i < levelSize; i++) {
+            Node* curr = q.front();
+            q.pop();
+
+            temp.push_back(curr->data);
+
+            if (curr->left != NULL)
+                q.push(curr->left);
+            if (curr->right != NULL)
+                q.push(curr->right);
+        }
+
+        res.push_back(temp);
+    }
+
+    return res;
+}
 
 int main(){
     struct Node* root = newNode(5);
@@ -75,5 +105,13 @@ int main(){
     //     cout<<endl;
     // }
 
-    printLevelOrder(root);
+    // printLevelOrder(root);
+
+    vector<vector<int>> res = levelOrder(root);
+    for(auto r: res){
+        for(int i: r){
+            cout<<" "<<i;
+        }
+        cout<<endl;
+    }
 }
