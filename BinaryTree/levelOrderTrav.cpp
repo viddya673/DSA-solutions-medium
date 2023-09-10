@@ -59,6 +59,7 @@ struct Node* newNode(int val){
 //     }
 // }
 
+//alternative way
 vector<vector<int>> levelOrder(Node* root) {
     vector<vector<int>> res;
     if (root == NULL)
