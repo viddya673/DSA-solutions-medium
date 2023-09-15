@@ -26,7 +26,6 @@ void deleteRoot(vector<int>& heap){
             return;
         }
     }
-
 }
 
 int main(){
