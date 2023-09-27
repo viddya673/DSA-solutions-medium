@@ -74,12 +74,19 @@ int main(){
 
     Solution s;
     Node* curr = s.copyRandomList(root);
-    while(curr){
-        cout<<curr->val<<" "<<curr->next->val<<" "<<curr->random->val<<endl;
-        if(curr->next)
-            curr = curr->next;
-        else
-            break;
+    while (curr != NULL) {
+        cout << curr->val << " ";
+        if (curr->next != NULL) {
+            cout << curr->next->val << " ";
+        } else {
+            cout << "NULL ";
+        }
+        if (curr->random != NULL) {
+            cout << curr->random->val << endl;
+        } else {
+            cout << "NULL" << endl;
+        }
+        curr = curr->next;
     }
-
+    return 0;
 }
