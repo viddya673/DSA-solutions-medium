@@ -22,20 +22,25 @@ using namespace std;
 class Solution {
 public:
     int findKthLargest(std::vector<int>& nums, int k) {
-        priority_queue<int, vector<int>, greater<int>> p(nums.begin(), nums.begin()+k);
-        
-        for(int i=k; i<nums.size(); i++){
-            if(nums[i] > p.top()){
-                p.pop();
-                p.push(nums[i]);
-            }
+        int n = nums.size();
+        priority_queue<int, vector<int>> p(nums.begin(), nums.begin()+n);
+        while(!p.empty()){
+            cout<<p.top()<<endl;
+            p.pop();
         }
-        return p.top();
+        return 0;
+        // for(int i=k; i<nums.size(); i++){
+        //     if(nums[i] > p.top()){
+        //         p.pop();
+        //         p.push(nums[i]);
+        //     }
+        // }
+        // return p.top();
     }
 };
 
 int main(){
-    vector<int> nums{20, 10, 60, 30, 50, 40};
+    vector<int> nums{3,2,1,5,6,4};
     Solution s;
     cout<<s.findKthLargest(nums, 3);
 }
