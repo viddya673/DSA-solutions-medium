@@ -39,7 +39,7 @@ Node* deleteBST(Node* root, int val){
         
         root->data = minVal(root->right);
         root->right = deleteBST(root->right, root->data);
-        
+       
     }
     return root;
 }
