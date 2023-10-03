@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
 struct Node{
@@ -20,6 +21,20 @@ void inOrderTraversal(struct Node* root){
         inOrderTraversal(root->left);
         cout<<root->data<<endl;
         inOrderTraversal(root->right);
+    }
+}
+
+void inorderItr(struct Node* root){
+    stack<Node*> stk;
+    while(root!=NULL || !stk.empty()){
+        while(root!=NULL){
+            stk.push(root);
+            root = root->left;
+        }
+        root = stk.top();
+        stk.pop();
+        cout<<root->data<<endl;
+        root = root->right;
     }
 }
 
@@ -49,9 +64,11 @@ int main(){
 
     cout<<"In order:"<<endl;
     inOrderTraversal(root);
-    cout<<"Pre order:"<<endl;
-    preOrderTraversal(root);
-    cout<<"Post order:"<<endl;
-    postOrderTraversal(root);
+    cout<<"In order iterative:"<<endl;
+    inorderItr(root);
+    // cout<<"Pre order:"<<endl;
+    // preOrderTraversal(root);
+    // cout<<"Post order:"<<endl;
+    // postOrderTraversal(root);
 
 }

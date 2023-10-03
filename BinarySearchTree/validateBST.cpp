@@ -16,6 +16,7 @@ struct TreeNode* newNode(int val){
     return node;
 }
 
+/*Inorder Traversal Method*/
 // class Solution {
 // public:
 //     bool validate(TreeNode* root, long long& prev) {
@@ -37,6 +38,7 @@ struct TreeNode* newNode(int val){
 //     }
 // };
 
+/*Elements within a Range Method*/
 class Solution {
 public:
     bool validate(TreeNode* root, int mini, int maxi) {
