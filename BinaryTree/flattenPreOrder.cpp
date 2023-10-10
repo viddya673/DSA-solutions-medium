@@ -15,23 +15,46 @@ struct Node* newNode(int val){
     return node;
 }
 
-void flatten(Node* root){
-    if(root==NULL)
-        return;
-    Node* curr = root;
+// void flatten(Node* root){
+//     if(root==NULL)
+//         return;
+//     Node* curr = root;
 
-    while(curr){
-        if(curr->left){
-            Node* rightMost = curr->left;
-            while(rightMost->right)
-                rightMost = rightMost->right;
-            rightMost->right = curr->right;
-            curr->right = curr->left;
+//     while(curr){
+//         if(curr->left){
+//             Node* rightMost = curr->left;
+//             while(rightMost->right)
+//                 rightMost = rightMost->right;
+//             rightMost->right = curr->right;
+//             curr->right = curr->left;
+//             curr->left = NULL;
+//         }
+//         curr = curr->right;
+//     }
+// }
+
+/*Easy to understand approach*/
+class Solution {
+public:
+    void flatten(Node* root) {
+        if(!root)
+            return;
+        
+        Node* curr = root;
+        while(curr){
+            Node* rightTree = curr->right;
+            if(curr->left){
+                curr->right = curr->left;
+                Node* temp = curr;
+                while(temp->right)
+                    temp=temp->right;
+                temp->right = rightTree;
+            }
             curr->left = NULL;
+            curr = curr->right;
         }
-        curr = curr->right;
     }
-}
+};
 
 int main(){
     Node* root = newNode(3);
@@ -41,7 +64,8 @@ int main(){
     root->right->left->left = newNode(4);
     root->right->left->right = newNode(6);
 
-    flatten(root);
+    Solution s;
+    s.flatten(root);
     while(root != NULL){
         cout<<root->data<<endl;
         root = root->right;
