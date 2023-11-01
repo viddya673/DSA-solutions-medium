@@ -26,9 +26,35 @@ public:
     }
 };
 
+class Solution2{
+    private: 
+    bool helper(int n, int k, vector<int> &arr, vector<vector<int>>& dp){
+        if(k==0)
+            return true;
+        if(n==0)
+            return false;
+
+        if(dp[n][k]!=-1) return dp[n][k];
+
+        bool not_taken = helper(n-1, k, arr, dp);
+
+        bool taken = false;
+        if(arr[n-1]<=k)
+            taken = helper(n-1, k-arr[n-1], arr, dp);
+
+        return dp[n][k] = (taken || not_taken);
+    }
+
+    public:
+    bool subsetSumToK(int n, int k, vector<int> &arr) {
+        vector<vector<int>> dp(n+1, vector<int>(k+1, -1));
+        return helper(n, k, arr, dp);
+    }
+};
+
 int main(){
-    Solution s;
+    Solution2 s;
     vector<int> nums{3, 34, 4, 12, 5, 2};
-    cout<<s.isSubsetSum(nums, 30);
+    cout<<s.subsetSumToK(nums.size(), 11, nums);
     return 0;
 }
