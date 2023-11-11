@@ -68,6 +68,28 @@ void postOrderTraversal(struct Node* root){
     }
 }
 
+void postorderItr(struct Node* root){
+    stack<Node*> stk1;
+    stack<int> stk2;
+    stk1.push(root);
+    while(!stk1.empty()){
+        Node* curr = stk1.top();
+        stk1.pop();
+        stk2.push(curr->data);
+
+        if(curr->left)
+            stk1.push(curr->left);
+        if(curr->right)
+            stk1.push(curr->right);
+    }
+
+    while(!stk2.empty()){
+        cout<<stk2.top()<<endl;
+        stk2.pop();
+    }
+    return;
+}
+
 int main(){
     struct Node* root = newNode(2);
     root->left = newNode(4);
@@ -76,13 +98,12 @@ int main(){
     root->right->left = newNode(8);
     root->right->right = newNode(3);
 
-    cout<<"Pre order:"<<endl;
-    preOrderTraversal(root);
-    cout<<"Pre order iterative:"<<endl;
-    preorderItr(root);
+    cout<<"Post order:"<<endl;
+    postOrderTraversal(root);
+    cout<<"Post order iterative:"<<endl;
+    postorderItr(root);
     // cout<<"Pre order:"<<endl;
-    // preOrderTraversal(root);
+    // preOrderTraversal(root)
     // cout<<"Post order:"<<endl;
     // postOrderTraversal(root);
-
 }
