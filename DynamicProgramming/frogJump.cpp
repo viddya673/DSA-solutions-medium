@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <vector>
+using namespace std;
 
 //10 20 30 10.
 int frogJump(int n, vector<int> &heights)
@@ -13,4 +15,10 @@ int frogJump(int n, vector<int> &heights)
         dp[i] = min(one_jump, two_jumps);
     }
     return dp[n-1];
+}
+
+int main(){
+    vector<int> nums{7, 4, 4, 2, 6, 6, 3, 4};
+    int n = nums.size();
+    cout<<frogJump(n, nums);
 }
