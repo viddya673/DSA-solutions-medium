@@ -28,7 +28,7 @@ public:
 };
 
 int main(){
-    vector<int> nums {1, 2, 2};
+    vector<int> nums {1, 1, 3};
     Solution s;
 
     vector<vector<int>> res = s.subsetsWithDup(nums);

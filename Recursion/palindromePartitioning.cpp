@@ -1,3 +1,8 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
 bool isPalindrome(string s, int start, int end){
     while(start<=end){
         if(s[start++]!=s[end--]) 
@@ -26,4 +31,14 @@ vector<vector<string>> partition(string s) {
     vector<vector<string>> res;
     helper(0, s, temp, res);
     return res;
+}
+
+int main(){
+    string s = "ababba";
+    vector<vector<string>> res = partition(s);
+    for(auto item: res){
+        for(string i: item)
+            cout<<i<<" ";
+        cout<<endl;
+    }
 }

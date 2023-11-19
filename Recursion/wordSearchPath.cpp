@@ -12,40 +12,74 @@ and D where R denotes you took right and D denotes where you took down. Print "N
 be either no path or exactly one path possible.
 */
 
-void dfs(int ind, int i, int j, vector<vector<char>> matrix, string target, string& curr, string& path) {
+/*My first approach*/
+// void dfs(int ind, int i, int j, vector<vector<char>> matrix, string target, string& curr, string& path) {
+//     if (ind == target.size()) {
+//         return;
+//     }
+
+//     // Check right
+//     if (j + 1 < matrix[0].size() && matrix[i][j + 1] == target[ind]) {
+//         path += 'R';
+//         curr += target[ind];
+//         dfs(ind + 1, i, j + 1, matrix, target, curr, path);
+//     }
+
+//     // Check down
+//     if (i + 1 < matrix.size() && matrix[i + 1][j] == target[ind]) {
+//         path += 'D';
+//         curr += target[ind];
+//         dfs(ind + 1, i + 1, j, matrix, target, curr, path);
+//     }
+
+//     if(curr!=target){
+//         // backtrack
+//         curr.pop_back();
+//         path.pop_back();
+//     }
+// } 
+
+/*Optimal approach - Since only one right answer is possible*/
+bool dfs(int ind, int i, int j, vector<vector<char>> matrix, string target, string& curr, string& path) {
     if (ind == target.size()) {
-        return;
+        if(curr==target)
+            return true;
+        return false;
     }
 
     // Check right
     if (j + 1 < matrix[0].size() && matrix[i][j + 1] == target[ind]) {
         path += 'R';
         curr += target[ind];
-        dfs(ind + 1, i, j + 1, matrix, target, curr, path);
+        if(dfs(ind + 1, i, j + 1, matrix, target, curr, path)==true)
+            return true;
     }
 
     // Check down
     if (i + 1 < matrix.size() && matrix[i + 1][j] == target[ind]) {
         path += 'D';
         curr += target[ind];
-        dfs(ind + 1, i + 1, j, matrix, target, curr, path);
-    }
+        if(dfs(ind + 1, i + 1, j, matrix, target, curr, path)==true)
+            return true;
+    } 
 
-    if(curr!=target){
-        // backtrack
-        curr.pop_back();
-        path.pop_back();
-    }
+    //Backtrack
+    curr.pop_back();
+    path.pop_back();
+
+    return false;
 }
 
 string findPath(vector<vector<char>> matrix, string target) {
     string curr = "";
     string path;
     curr += target[0];
-    dfs(1, 0, 0, matrix, target, curr, path);
-    if(path.length()==target.length()-1)
-        return path;
+    bool res = dfs(1, 0, 0, matrix, target, curr, path);
+    if(res) return path;
     return "NO PATH";
+    // if(path.length()==target.length()-1)
+    //     return path;
+    // return "NO PATH";
 }
 
 int main() {

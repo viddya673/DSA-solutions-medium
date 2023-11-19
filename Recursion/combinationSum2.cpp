@@ -32,11 +32,11 @@ public:
 
 int main(){
     vector<int> temp;
-    vector<int> nums {2,3,6,7};
+    vector<int> nums {1, 1, 1, 2, 2};
     int n = nums.size();
 
     Solution s;
-    vector<vector<int>> res = s.combinationSum2(nums, 7);
+    vector<vector<int>> res = s.combinationSum2(nums, 4);
     for(auto it: res){
         for(int i: it){
             cout<<i<<" ";
