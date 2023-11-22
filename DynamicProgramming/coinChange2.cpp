@@ -3,25 +3,25 @@
 using namespace std;
 
 /* Memoization */
-// long helper(int ind, int* denominations, int n, int value, vector<vector<long>>& dp){
-//     if (ind == n) {
-//         if (value == 0) return 1;
-//         return 0;
-//     }
+long helper(int ind, int* denominations, int n, int value, vector<vector<long>>& dp){
+    if (ind == n) {
+        if (value == 0) return 1;
+        return 0;
+    }
 
-//     if(dp[ind][value]!=-1) return dp[ind][value];
+    if(dp[ind][value]!=-1) return dp[ind][value];
 
-//     long take = 0;
-//     if(value>=denominations[ind]){
-//         value -= denominations[ind];
-//         take = helper(ind, denominations, n, value, dp);
-//         value += denominations[ind];
-//     }
+    long take = 0;
+    if(value>=denominations[ind]){
+        value -= denominations[ind];
+        take = helper(ind, denominations, n, value, dp);
+        value += denominations[ind];
+    }
 
-//     long not_take = helper(ind+1, denominations, n, value, dp);
+    long not_take = helper(ind+1, denominations, n, value, dp);
 
-//     return dp[ind][value] = (take + not_take);
-// }
+    return dp[ind][value] = (take + not_take);
+}
 
 /* Tabulation */
 long countWaysToMakeChange(int *denominations, int n, int value)
