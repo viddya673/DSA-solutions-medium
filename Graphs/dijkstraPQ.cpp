@@ -6,7 +6,8 @@ using namespace std;
 
 class Solution
 {
-    private: void dijstraTrav(int s, int v, vector<vector<int>> adj[], vector<int>& dist){
+    private: 
+    void dijstraTrav(int s, int v, vector<vector<int>> adj[], vector<int>& dist){
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minHeap;
         minHeap.push({0, s});
         
