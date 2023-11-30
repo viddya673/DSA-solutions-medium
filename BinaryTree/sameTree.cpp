@@ -35,18 +35,30 @@ public:
         return result;
     }
 
+    /* 1st approach */
+    // bool isSameTree(TreeNode* p, TreeNode* q) {
+    //     vector<int> res1 = preOrderTraversal(p);
+    //     vector<int> res2 = preOrderTraversal(q);
+    //     if (res1.size() != res2.size())
+    //         return false;
+        
+    //     for(int i=0; i<res1.size(); i++){
+    //         if(res1[i] != res2[i])
+    //             return false;
+    //     }
+    //     return true;
+    // }
 
+    /* 2nd approach */
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        vector<int> res1 = preOrderTraversal(p);
-        vector<int> res2 = preOrderTraversal(q);
-        if (res1.size() != res2.size())
+        if (!p && !q)
+            return true;
+        if(!p || !q)
             return false;
         
-        for(int i=0; i<res1.size(); i++){
-            if(res1[i] != res2[i])
-                return false;
-        }
-        return true;
+        if(p->val != q->val)
+            return false;
+        return (isSameTree(p->left, q->left) && isSameTree(p->right, q->right));
     }
 };
 

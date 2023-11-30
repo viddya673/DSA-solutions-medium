@@ -68,24 +68,52 @@ void postOrderTraversal(struct Node* root){
     }
 }
 
-void postorderItr(struct Node* root){
-    stack<Node*> stk1;
-    stack<int> stk2;
-    stk1.push(root);
-    while(!stk1.empty()){
-        Node* curr = stk1.top();
-        stk1.pop();
-        stk2.push(curr->data);
+/* Two stacks */
+// void postorderItr(struct Node* root){
+//     stack<Node*> stk1;
+//     stack<int> stk2;
+//     stk1.push(root);
+//     while(!stk1.empty()){
+//         Node* curr = stk1.top();
+//         stk1.pop();
+//         stk2.push(curr->data);
 
-        if(curr->left)
-            stk1.push(curr->left);
-        if(curr->right)
-            stk1.push(curr->right);
-    }
+//         if(curr->left)
+//             stk1.push(curr->left);
+//         if(curr->right)
+//             stk1.push(curr->right);
+//     }
 
-    while(!stk2.empty()){
-        cout<<stk2.top()<<endl;
-        stk2.pop();
+//     while(!stk2.empty()){
+//         cout<<stk2.top()<<endl;
+//         stk2.pop();
+//     }
+//     return;
+// }
+
+/* Single stack */
+void postorderItr(Node* root){
+    stack<Node*> stk;
+    Node* curr = root;
+    while(!stk.empty() || curr!=NULL){
+        if(curr!=NULL){
+            stk.push(curr);
+            curr = curr->left;
+        }
+        else{
+            Node* temp = stk.top()->right;
+            if(temp==NULL){
+                temp = stk.top();
+                stk.pop();
+                cout<<temp->data<<endl;
+                while(!stk.empty() && temp == stk.top()->right){
+                    temp = stk.top();
+                    stk.pop();
+                    cout<<temp->data<<endl;
+                }
+            }
+            else curr = temp;
+        }
     }
     return;
 }

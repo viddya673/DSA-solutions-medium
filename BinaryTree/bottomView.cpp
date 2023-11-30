@@ -17,7 +17,7 @@ struct Node* newNode(int val){
     return node;
 }
 
-vector<int> topView(Node* root){
+vector<int> bottomView(Node* root){
     queue<pair<int, Node*>> q;
     map<int, int> mp;
 
@@ -49,7 +49,7 @@ int main(){
     root->right->left = newNode(8);
     root->right->right = newNode(3);
 
-    vector<int> res = topView(root);
+    vector<int> res = bottomView(root);
     for(int r: res)
         cout<<r<<endl;
 }
