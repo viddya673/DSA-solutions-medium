@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <unordered_set>
 using namespace std;
 
@@ -16,6 +17,40 @@ struct Node* newNode(int val){
     return node;
 }
 
+class BSTiterator{
+    private: 
+        stack<Node*> stk;
+        bool reverse;
+
+        void pushAll(Node* root){
+            while(root){
+                stk.push(root);
+                if(!reverse)
+                    root = root->left;
+                else
+                    root = root->right;
+            }
+        }
+
+    public:
+        BSTiterator(Node* root, bool isReverse){
+            reverse = isReverse;
+            pushAll(root);
+        }
+
+        int next(){
+            Node* curr = stk.top();
+            stk.pop();
+            if (reverse) pushAll(curr->left);
+            else pushAll(curr->right);
+            return curr->val;
+        }
+        bool hasNext(){
+            return !stk.empty();
+        }
+
+};
+
 class Solution {
 public:
     bool solve(unordered_set<int>& seen, Node* root, int k){
@@ -32,6 +67,29 @@ public:
         unordered_set<int> seen;
         return solve(seen, root, k);
     }
+
+    /* Using BST iterator */
+    bool pairSumBst(Node *root, int k)
+    {
+        BSTiterator l(root, false);
+        BSTiterator r(root, true);
+
+        int i = l.next();
+        int j = r.next();
+
+        while(i<j){
+            int sum = i+j;
+            if(sum==k) return true;
+
+            if(sum<k){
+                i = l.next();
+            }
+            else if(sum>k){
+                j = r.next();
+            }
+        }
+        return false;
+    }
 };
 
 int main(){
@@ -43,5 +101,6 @@ int main(){
     root->right->right = newNode(7);
 
     Solution s;
-    cout<<s.findTarget(root, 9);
+    cout<<s.findTarget(root, 9)<<endl;
+    cout<<s.pairSumBst(root, 9);
 }
